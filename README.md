@@ -1,4 +1,4 @@
-# Socketwrap [![Build Status](https://travis-ci.org/findhit/proxywrap.svg?branch=master)](https://travis-ci.org/findhit/proxywrap)
+# Socketwrap
 
 Add [PROXY protocol](http://haproxy.1wt.eu/download/1.5/doc/proxy-protocol.txt). v1 or v2 support to nodejs sockets. IPv4 and IPv6 protocols supported
 
@@ -23,14 +23,14 @@ npm install --save socketwrap
 
 ```js
 const net = require('net')
-var socketwrap  = require('socketwrap');
+var {socketwrap, override}  = require('socketwrap');
 
 var srv = new net.Server( async (socket) {
-  await socketwrap(socket, {
-    override : true,  //default
-    strict   : true,  //default
-  });
 
+  let {remoteAddress, remotePort} = await socketwrap(socket);
+  override(socket, {remoteAddress, remotePort}); //you might want to deal with that in another way
+
+  socket.pipe(somedest);
   console.log("IP = %s:%d", socket.remoteAddress, socket.remotePort);
 });
 
@@ -50,15 +50,11 @@ This also adds to all your sockets the properties:
 ## API
 
 
-### `async socketwrap(socket [, options])`
+### `<proxyInfo> async socketwrap(socket)`
 
-Wraps a socket, extend it with PROXY protocol support.
+Parse a socket header for PROXY protocol support.
 
-Options:
 
-- `strict` (default `true`): Incoming connections MUST use the PROXY protocol.  If the first five bytes received aren't `PROXY`, the connection will be dropped.  Disabling this option will allow connections that don't use the PROXY protocol (so long as the first bytes sent aren't `PROXY`).  Disabling this option poses a security risk; it should be enabled in production.
-
-- `overrideRemote` (default `true`): **socketwrap** overrides `socket.remoteAddress` and `socket.remotePort` for compability proposes. If you set this as `false`, your `socket.remoteAddress` and `socket.remotePort` will have the Address and Port of your **load-balancer** or whatever you are using behind your app. You can also access client's Address and Port by using `socket.clientAddress` and `socket.clientPort`.
 
 ## Contribute
 
