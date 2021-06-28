@@ -1,0 +1,52 @@
+{
+  "name": "socketwrap",
+  "version": "0.9.0",
+  "description": "Wraps node's socket to be compatible with the PROXY-PROTOCOL v1 or v2. Supports IPv4 and IPv6",
+  "main": "lib/socketwrap.js",
+  "author": "Francois Leurent",
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Francois Leurent",
+      "email": "131.code@leurent.email"
+    },
+    {
+      "name": "José Moreira",
+      "email": "jose.moreira@findhit.com"
+    },
+    {
+      "name": "Bruno Casanova",
+      "email": "bruno.casanova@findhit.com"
+    },
+    {
+      "name": "Gabriel Conceição",
+      "email": "gabriel.conceicao@findhit.com"
+    },
+    {
+      "name": "Andrii Kostenko",
+      "email": "andrii@short.io"
+    }
+  ],
+  "engines": {
+    "node": ">= 10"
+  },
+  "scripts": {
+    "eslint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/131/socketwrap"
+  },
+  "dependencies": {
+    "@balena/proxy-protocol-parser": "^1.0.2"
+  },
+  "devDependencies": {
+  },
+  "keywords": [
+    "proxy-protocol",
+    "elb"
+  ],
+  "bugs": {
+    "url": "https://github.com/131/socketwrap/issues"
+  }
+}
